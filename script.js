@@ -1,4 +1,4 @@
-const storiesContainer = document.getElementById('storiesContainer');
+    const storiesContainer = document.getElementById('storiesContainer');
     const storyViewer = document.getElementById('storyViewer');
     const storyViewerContent = document.getElementById('storyViewerContent');
     const storyViewerTitle = document.getElementById('storyViewerTitle');
@@ -64,11 +64,11 @@ const storiesContainer = document.getElementById('storiesContainer');
             clearTimeout(progressTimeout);
             return;
         }
-
+    
         const story = storyQueue[index];
         storyViewerContent.innerHTML = '';
-        storyViewerTitle.textContent = story.title;
-
+        storyViewerTitle.textContent = story.title; // Update the title here
+    
         // Create and add the close button
         const closeButton = document.createElement('button');
         closeButton.textContent = 'Close';
@@ -84,22 +84,26 @@ const storiesContainer = document.getElementById('storiesContainer');
             storyViewer.classList.remove('active');
             clearTimeout(progressTimeout);
         });
-
+    
         // Append close button to the content
         storyViewerContent.appendChild(closeButton);
-
+    
         if (story.type === 'image') {
             const img = document.createElement('img');
             img.src = story.src;
             storyViewerContent.appendChild(img);
-            updateProgressBar(5000, () => showStory(index + 1));
+            updateProgressBar(5000, () => {
+                showStory(index + 1);
+            });
         } else if (story.type === 'video') {
             const video = document.createElement('video');
             video.src = story.src;
             video.autoplay = true;
             storyViewerContent.appendChild(video);
             video.onloadedmetadata = () => {
-                updateProgressBar(15000, () => showStory(index + 1));
+                updateProgressBar(15000, () => {
+                    showStory(index + 1);
+                });
             };
             video.ontimeupdate = () => {
                 if (video.currentTime > 15) {
@@ -109,7 +113,7 @@ const storiesContainer = document.getElementById('storiesContainer');
                 }
             };
         }
-
+    
         storyViewer.classList.add('active');
     }
 
